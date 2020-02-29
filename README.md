@@ -1,6 +1,6 @@
 # Powershell 
 
-A begineer that is new to powershell world. Always looking to improve my skills. 
+A begininer that is new to powershell world. Always looking to improve my skills. 
 
 Hope you like it.
 
