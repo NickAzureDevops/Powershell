@@ -5,7 +5,19 @@ Param (
         [string[]]    # [] After the string accepts multiple inputs 
         $Computername
         
-)
+    )
+        
+       #  get-service -ComputerName $Computername | 
+       #  where-object -Property Status -eq 'Stopped'
+       # for each 
+      foreach ($target in $Computername) {
+        
+        get-service -ComputerName $Computername | 
+        
+        where-object -Property Status -eq 'Stopped'
+}
+
+
 # create varible objects for get-service 
 
 $Service = Get-service -ComputerName $Computername
@@ -26,3 +38,7 @@ Foreach ($service in $services) {
         Write-Output "Check Service - Status of $ServiceDisplayName is $ServiceStatus"
     }
     }
+# find all the stopped services 
+#     $Computername = "Client02"
+  #   get-service -ComputerName $Computername | Where-Object -Property Status -eq 'Stopped' 
+
