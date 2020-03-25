@@ -3,7 +3,6 @@ $computers = Import-Csv C:\Users\nicholaschang\Documents\Computers.csv
 $installer = C:\Users\nicholaschang\Documents\VPNClient\Forcepoint-6.6.0.6605.exe
 #$Arg = '/s' #installer silently 
 $TempDirectory = C:\temp
-#$Domain = "Test.local" #domain 
 #$GroupOU = "OU=Software Distribution,DC=Test,DC=LOCAL" 
 
 #copy item from network share to local computer in temp folder. 
