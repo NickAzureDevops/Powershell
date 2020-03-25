@@ -16,11 +16,3 @@ foreach($computer in $computers) {
    
     Invoke-Command -ComputerName $computers.name -ScriptBlock $path $messagebox 
 }
-
-
-
-
-
-
-
-

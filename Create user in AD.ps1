@@ -26,7 +26,7 @@ $newuser = @{
   
    New-ADUser @newuser
 
-   #Another Method P 
+   #Another Method 
 
    Import-Csv "NewUsers.csv" | ForEach-Object {
       $userPrinc = $_."Logon Username" + "@pca.hq"
