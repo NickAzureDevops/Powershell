@@ -38,14 +38,13 @@ $CimSession = New-CimSession -ComputerName aduk02 -Credential (Get-Credential)
 
 # Set the admin credential
 
-ForEach {
+# ForEach {
     "Processing computername $_"
     Invoke-Command -ComputerName $_ -ScriptBlock {
     # Get the DNS address information for the target
     Get-DnsClientServerAddress
     } -Credential $Creds
     "`n" # line break
-}
 
 $Session = New-CimSession -ComputerName Server01, Server02
 Get-DnsClientServerAddress -CimSession $Session
