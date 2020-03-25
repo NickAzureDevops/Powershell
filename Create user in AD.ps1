@@ -21,8 +21,26 @@ $newuser = @{
     'AccountPassword'       = Read-Host -AsSecureString "Input Password"
     'ChangePasswordAtLogon' = $false  
     'Enabled'               = $true 
-   # 'GroupMember'           = $member
   
 }
   
    New-ADUser @newuser
+
+   #Another Method P 
+
+   Import-Csv "NewUsers.csv" | ForEach-Object {
+      $userPrinc = $_."Logon Username" + "@pca.hq"
+      New-QADUser -Name $_.Name `
+      -ParentContainer $_."Container" `
+      -SamAccountName $_."Logon Username" `
+      -UserPassword "pass123!ForWhat" `
+      -FirstName $_."First Name" `
+      -LastName $_."Last Name" `
+      -LogonScript "students.bat" `
+      -Description $_."Graduating Year" `
+      -UserPrincipalName $userPrinc `
+      -DisplayName $_."Name" ;`
+      Add-QADGroupMember -identity $_."Graduating Year" -Member $_."Logon Username" ;`
+      Set-QADUser -identity $_."Logon Username" `
+      -UserMustChangePassword $true `
+     }
