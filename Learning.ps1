@@ -15,7 +15,3 @@ $computername = read-host "Please Enter Computer Name"
 Get-CimInstance -ClassName Win32_OperatingSystem -ComputerName $computername | Select-Object -Property CSName,LastBootupTime
 
 #Add variable to invoke- $data = invoke-command -Computer $computerName -Credentials $credentials -scriptblock {get-service -ComputerName $using:ComputerName} need to use $using variable in order to be read into the script block
-
-#invoke-command -computername dc01 -cred (get-credentials) -scriptblock {Get-aduser -identity nicholas.chang | format-list}
-
-# Parameterized script
