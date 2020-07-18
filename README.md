@@ -1,8 +1,5 @@
 # Powershell 
 
-A begininer that is new to powershell world. Always looking to improve my skills. 
+A begininer that is new to powershell world. Always looking Windows Automation 
 
 Hope you like it.
-
-Improvements on the script is made on daily basis. 
-
