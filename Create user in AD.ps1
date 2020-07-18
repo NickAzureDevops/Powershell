@@ -1,46 +1,29 @@
-﻿#Automate AD 
+﻿#Import Active Directory 
 
-#Prompt for needed information
-$firstname = Read-Host -Prompt 'Please enter the first name of the new user'
-$surname = Read-Host -Prompt 'Please enter the last name of the new user'
-$User    = Read-Host 'Please enter a USPN'
-$Email   = Read-Host 'Enter Email'
-#$member = Read-Host 'Please Enter a Group to Add to user'
+Import-module activedirectory
 
+#Import CSV 
+$users = Import-Csv -Path c:\scripts\newusers 
 
-#hash table  
-
-$newuser = @{
-    'SamAccountName'        = $User
-    'UserPrincipalName'     = $User 
-    'Name'                  = $firstname
+# Create a hash table with parameters
+$users = @{
+    'SamAccountName'        = $UserName
+    'UserPrincipalName'     = $FirstnameSurname
+    'Name'                  = $Forname
     'EmailAddress'          = $Email 
-    'GivenName'             = $firstname 
-    'Surname'               = $surname 
-    'DisplayName'           = “$Displayname” 
-    'AccountPassword'       = Read-Host -AsSecureString "Input Password"
-    'ChangePasswordAtLogon' = $false  
+    'GivenName'             = $Fornavn 
+    'Surname'               = $Etternavn 
+    'DisplayName'           = $Displayname
+    'AccountPassword'       = $password 
+    'ChangePasswordAtLogon' = $true 
     'Enabled'               = $true 
-  
+    'Path'                  = $OUPath
+    'Title'                 = $jobtitle
+    'Department'            = $Department 
+    'OfficePhone'           = $telephone
 }
-  
-   New-ADUser @newuser
 
-   #Another Method 
+# Call New-ADUser with the parameters set above
+New-ADUser @users
 
-   Import-Csv "NewUsers.csv" | ForEach-Object {
-      $userPrinc = $_."Logon Username" + "@pca.hq"
-      New-QADUser -Name $_.Name `
-      -ParentContainer $_."Container" `
-      -SamAccountName $_."Logon Username" `
-      -UserPassword "pass123!ForWhat" `
-      -FirstName $_."First Name" `
-      -LastName $_."Last Name" `
-      -LogonScript "students.bat" `
-      -Description $_."Graduating Year" `
-      -UserPrincipalName $userPrinc `
-      -DisplayName $_."Name" ;`
-      Add-QADGroupMember -identity $_."Graduating Year" -Member $_."Logon Username" ;`
-      Set-QADUser -identity $_."Logon Username" `
-      -UserMustChangePassword $true `
-     }
+test
