@@ -1,7 +1,6 @@
 ﻿Import-Module ActiveDirectory
 
 $MemberList = (Get-ADGroupmember -Identity "Leadership Team") | 
-
 Add-ADGroupMember -Identity "Weeklybooking Group" -Members $MemberList
 
 Or
