@@ -18,10 +18,6 @@ Param (
 }
 
 
-# create varible objects for get-service 
-
-$Service = Get-service -ComputerName $Computername
-
 # Foreach to perform action on each objects in $service
 
 Foreach ($service in $services) {
@@ -41,4 +37,3 @@ Foreach ($service in $services) {
 # find all the stopped services 
 #     $Computername = "Client02"
   #   get-service -ComputerName $Computername | Where-Object -Property Status -eq 'Stopped' 
-
