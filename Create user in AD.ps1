@@ -88,4 +88,7 @@ foreach ($User in $ADUsers)
 	}
 }
 
-123
+#List of remote computers installed software 
+
+Get-WmiObject Win32_Product -ComputerName DC01 | select Name,Version
+PS C:\Users\nicholas.chang> get-service | where {$_.status -ne 'running' -AND $_.StartType -eq 'Automatic'} | start-service -PassThru                                                                                                                         

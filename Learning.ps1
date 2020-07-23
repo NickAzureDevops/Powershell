@@ -1,4 +1,4 @@
-$computerName = 'IPD19298'
+$computerName = 'DC01'
 $credentials = Get-Credential
 
 $cimsession = New-CimSession -ComputerName $computerName -Credential $credentials
@@ -6,7 +6,6 @@ $cimsession
 
 #view stopped services 
 $hostname = Read-Host 'Enter Computer Name'
-
 $stoppedservices = get-service -ComputerName $hostname |  Where-Object -Property status -EQ 'Stopped'
 
 Write-Output $stoppedservices
