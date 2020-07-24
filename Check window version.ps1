@@ -17,3 +17,7 @@ Get-Content -path C:\users\nicholas.chang\Documents\Checkserveronline.txt | ForE
        $operating_stystem
     }
 }
+
+# Remote computer software list
+Get-CimInstance -ComputerName (Get-Content C:\Temp\Computer.txt) -ClassName win32_product -ErrorAction SilentlyContinue| 
+Select-Object PSComputerName, Name, PackageName, InstallDate | Out-GridView
