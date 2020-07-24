@@ -37,7 +37,6 @@ $CimSession = New-CimSession -ComputerName aduk02 -Credential (Get-Credential)
 (Get-DNSClientServerAddress -cimsession $cimsession -InterfaceAlias "ethernet" -AddressFamily IPV4).ServerAddress
 
 # Set the admin credential
-
 # ForEach {
     "Processing computername $_"
     Invoke-Command -ComputerName $_ -ScriptBlock {
@@ -46,5 +45,5 @@ $CimSession = New-CimSession -ComputerName aduk02 -Credential (Get-Credential)
     } -Credential $Creds
     "`n" # line break
 
-$Session = New-CimSession -ComputerName Server01, Server02
+$Session = New-CimSession -ComputerName aduk02
 Get-DnsClientServerAddress -CimSession $Session
