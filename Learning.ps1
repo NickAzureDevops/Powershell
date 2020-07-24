@@ -17,7 +17,7 @@ Get-CimInstance -ClassName Win32_OperatingSystem -ComputerName $computername | S
 Get-Alias Get-ChildItem
 Set-ADAccountPassword jfrost -NewPassword
 Set-ADUser jfrost -ChangePasswordAtLogon $True - changed at login 
-get-aduser -filter "enabled -eq 'false'" - Or I could pipe in a bunch of users and delete them with one simple command:
+get-aduser -filter "enabled -eq 'false'" 
 -property WhenChanged -SearchBase "OU=Employees,
 etsn -ComputerName
 Get-service b* | where-Object {$_.DisplayName -match “.+user”}
