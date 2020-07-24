@@ -9,3 +9,12 @@ Export-CSV ADcomputerslist.csv | Select-Object OperatingSystemVersion
 
 Get-ADComputer -Filter * -Properties Name, OperatingSystem, OperatingSystemVersion |
 Select-Object Name, OperatingSystem, OperatingSystemVersion | Sort-Object Name | Format-Table 
+
+
+#Get Computers from txt file 
+Get-Content -path C:\users\nicholas.chang\Documents\Checkserveronline.txt | ForEach-Object {
+    if (Test-Connection -ComputerName $_ -Quiet -Count 1) {
+       $operating_stystem = Get-CimInstance -ComputerName $_ -ClassName 'Win32_OperatingSystem' | Select-Object BuildNumber,Caption
+       $operating_stystem
+    }
+}
