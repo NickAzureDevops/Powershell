@@ -34,7 +34,4 @@ foreach ($User in $Users)
     # Add-ADGroupMember -Identity $group -Members $Group
 
     # assigned user a office365 licence 
-
-
-
 }
