@@ -1,33 +1,30 @@
-﻿#Add groups 
-$GroupName = "Users", "Domain Admin"
+﻿#Import Active Directory 
+#$AddGroup = Users
 
-#Import Active Directory 
-Import-module activedirectory
-#Import CSV 
-$ADUsers = Import-csv -Path c:\scripts\newusers 
+Import-Module ActiveDirectory
 
-# Create a hash table with parameters
-$ADusers = @{
-    'SamAccountName'        = $UserName
-    'UserPrincipalName'     = $FirstnameSurname
-    'Name'                  = $Forname
-    'EmailAddress'          = $Email 
-    'GivenName'             = $Fornavn 
-    'Surname'               = $Etternavn 
-    'DisplayName'           = $Displayname
-    'AccountPassword'       = $password 
-    'ChangePasswordAtLogon' = $true 
-    'Enabled'               = $true 
-    'Path'                  = $OUPath
-    'Title'                 = $jobtitle
-    'Department'            = $Department 
-    'OfficePhone'           = $telephone
-}
-
-# Call New-ADUser with the parameters set above
-New-ADUser @ADusers
-
-foreach ($group in $GroupName) 
-{
-    Add-ADGroupMember -Identity $group -Members $UserName
+$Users = Import-Csv -Path "c:\Users\nicholas.chang\Documents\Scripts\newusers.csv"            
+foreach ($User in $Users)            
+{            
+    $Displayname = $User.FirstName + " " + $User.Lastname            
+    $UserFirstname = $User.Firstname            
+    $UserLastname = $User.Lastname            
+    $OU = $User.OU           
+    $SAM = $User.SAM      
+    $email = $User.$email  
+    $telephone = $User.$telephone
+    $Description = $User.Description
+    $department = $User.department 
+    $jobtitle   = $User.jobtitle
+    $Password = $User.Password  
+    
+    New-ADUser `
+    -Name $Displayname -DisplayName $Displayname -SamAccountName $SAM -UserPrincipalName "$SAM@cloudtechgenius.com" `
+    -GivenName $UserFirstname -Surname $UserLastname -Department $department `
+    -Description $Description -EmailAddress $User.email -Title $jobtitle -OfficePhone $telephone `
+    -AccountPassword (ConvertTo-SecureString $Password -AsPlainText -Force) -Enabled $true `
+    -Path "$OU"  -ChangePasswordAtLogon $true  –PasswordNeverExpires $false 
+   
+     Write-Host $User.SAM "created successfully"
+ #   Add-ADGroupMember -Identity $group -Members $AddGroup
 }
