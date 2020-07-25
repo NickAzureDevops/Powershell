@@ -19,7 +19,8 @@ try {
     {New-Item -ItemType Directory -Force -Path C:\Temp #create new directory if folder do not exist
          {
             #Install the application from temp folder 
-            Invoke-Command -ComputerName $computers.name -ScriptBlock $TempDirectory -ArgumentList "--quiet" -Verb RunAs -Wait -NoNewWindow }
+            (Start-Process -FilePath C:\Software\chrome.exe -ArgumentList '/VERYSILENT /SUPPRESSMSGBOXES /NORESTART /SP-' -Wait -Passthru).ExitCode
+           # Invoke-Command -ComputerName $computers.name -ScriptBlock $TempDirectory -ArgumentList "--quiet" -Verb RunAs -Wait -NoNewWindow }
             Remove-Item $TempDirectory
         }
 }  
