@@ -14,11 +14,10 @@ foreach ($User in $Users) {
     $Description = $User.Description
     $department = $User.department 
     $jobtitle = $User.jobtitle
-    $groupname = $User.$groupname
+    $group = $group.split(",")
     $Password = $User.Password  
-    
-    # Creating User with AD Attributes
 
+    # Creating User with AD Attributes
     New-ADUser `
         -Name $Displayname -DisplayName $Displayname -SamAccountName $SAM -OfficePhone $telephone  `
         -UserPrincipalName "$SAM@cloudtechgenius.com" -GivenName $UserFirstname -Surname $UserLastname -Department $department `
@@ -28,10 +27,10 @@ foreach ($User in $Users) {
    
         Write-Host $User.SAM "created successfully" 
         # Add user to Group
-        Add-ADGroupMember $User.groupname -Members $SAM 
+        Add-ADGroupMember $User.$group -members $SAM 
         # Add user to mutiple groups 
         Write-Host $User.SAM "Please Wait adding groups membership"
     
         # assigned each user office365 licence 
-        
+
     }
