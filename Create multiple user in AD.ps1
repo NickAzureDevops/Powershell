@@ -31,4 +31,7 @@ foreach ($User in $Users) {
         Add-ADGroupMember $User.groupname -Members $SAM 
         # Add user to mutiple groups 
         Write-Host $User.SAM "Please Wait adding groups membership"
+    
+        # assigned each user office365 licence 
+        
     }
