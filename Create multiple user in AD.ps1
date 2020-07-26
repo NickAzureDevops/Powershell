@@ -14,9 +14,10 @@ foreach ($User in $Users) {
     $Description = $User.Description
     $department = $User.department 
     $jobtitle = $User.jobtitle
-    $group = $groupname.split(",")
-    $Password = $User.Password  
+    $groups = $User.groupname -split ";"
 
+    $Password = $User.Password  
+    
     # Creating User with AD Attributes
 
     New-ADUser `
@@ -27,11 +28,12 @@ foreach ($User in $Users) {
         -Path "$OU"  -ChangePasswordAtLogon $true  –PasswordNeverExpires $false 
    
         Write-Host $User.SAM "created successfully" 
-        # Add user to Group
-        Add-ADGroupMember -Identity $user.$group -Members $SAM 
-        # Add user to mutiple groups 
-        Write-Host $User.SAM "Please Wait adding groups membership"
-    
-        # assigned each user office365 licence 
+        # Add user to Groups
+        foreach  ($groups in $group)
+        {
+        Add-ADGroupMember $groupname -Members $SAM
 
+        } 
+                
+        # assigned each user office365 licence
     }
