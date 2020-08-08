@@ -14,7 +14,8 @@ foreach ($User in $Users) {
     $Description = $User.Description
     $department = $User.department 
     $jobtitle = $User.jobtitle
-    $groups = $User.groupname -split ";"
+   # $groups = $User.groupname -split ";"
+    $groupname = ($User.groupname).split(",")
 
     $Password = $User.Password  
     
@@ -29,11 +30,10 @@ foreach ($User in $Users) {
    
         Write-Host $User.SAM "created successfully" 
         # Add user to Groups
-        foreach  ($groups in $group)
+        foreach  ($groupnames in $groupname)
         {
-        Add-ADGroupMember $groupname -Members $SAM
+        Add-ADGroupMember -Identity $User.groupname $SAM
 
-        } 
-                
+        }                 
         # assigned each user office365 licence
     }
